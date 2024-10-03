@@ -22,6 +22,7 @@
 
     <script type="module">
         import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -41,13 +42,24 @@
 
         // create the shape
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        var cubeMaterials = [
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/1.jpg' ), side: THREE.DoubleSide } ), // right
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/2.jpg' ), side: THREE.DoubleSide } ), // left
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/3.jpg' ), side: THREE.DoubleSide } ), // top
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/4.jpg' ), side: THREE.DoubleSide } ), // bottom
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/5.jpg' ), side: THREE.DoubleSide } ), // front
+            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( 'img/6.jpg' ), side: THREE.DoubleSide } ), // back
+        ];
 
         // create a material, color or image texture
-        var material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe: true } );
-        var cube = new THREE.Mesh( geometry, material )
+        // var material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe: true } );
+
+        var cube = new THREE.Mesh( geometry, cubeMaterials )
 
         // add to scene
         scene.add(cube);
+
+        const controls = new OrbitControls( camera, renderer.domElement );
 
         camera.position.z = 3;
 
